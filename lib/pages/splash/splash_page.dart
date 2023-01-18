@@ -5,7 +5,7 @@ import 'package:projects/common/asset_path.dart';
 import 'package:projects/common/dimensions.dart';
 import 'package:projects/common/constants.dart';
 import 'package:projects/common/colors.dart';
-import 'package:projects/pages/homee/homee_page.dart';
+import 'package:projects/pages/home/homee_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 

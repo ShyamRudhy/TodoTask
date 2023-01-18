@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:projects/common/colors.dart';
 import 'package:loading_indicator/loading_indicator.dart';
-import 'package:projects/pages/homee/homee_page.dart';
+import 'package:projects/pages/home/homee_page.dart';
 import 'package:projects/pages/splash/splash_page.dart';
 import 'common/constants.dart';
 import 'common/dimensions.dart';
