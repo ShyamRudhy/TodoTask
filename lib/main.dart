@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:projects/common/colors.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:projects/pages/add_task/add_campaign.dart';
 import 'package:projects/pages/home/homee_page.dart';
 import 'package:projects/pages/splash/splash_page.dart';
 import 'common/constants.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
       routes: {
       '/':(context) => SplashPage(),
         Constants.HOME_PAGE_ROUTE:(context) => const HomePage(),
-        Constants.HOME_PAGE_ROUTE:(context) => const HomePage(),
+        Constants.ADD_CAMPAIGN_PAGE_ROUTE:(context) => const AddCampaign(),
       },
 
     );
@@ -97,7 +98,7 @@ class MyApp extends StatelessWidget {
           color: Colors.white,
           fontWeight: FontWeight.w500,
           fontFamily: Constants.FONT_NAME_POPPINS,
-          fontSize: BUTTON_TEXT_LARGE_FONT_SIZE),
+          fontSize: BUTTON_TEXT_NORMAL_FONT_SIZE),
     );
   }
 

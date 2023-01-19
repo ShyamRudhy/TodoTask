@@ -50,14 +50,20 @@ class Constants{
 
   //Title
   static const String HOME_PAGE_TITLE = "Followup";
-  static const String COMPAIGN_PAGE_TITLE = "Compaign";
+  static const String CAMPAIGN_PAGE_TITLE = "Campaign";
 
-  /*PAGES*/
-  //Home page
-  //static const String
+  /*PAGES***********************************************************************/
 
-
-
+  //campaign page
+  static const String CAMPAIGN_PAGE_SUBHEAD_TITLE ="Campaign";
+  static const String EMAIL_ID_TEXT_INPUT_HINT = "Email ID";
+  static const String EMAIL_ID_TEXT_INPUT_ERROR = "Please enter valid Email ID";
+  static const String LEAD_ID_TEXT_INPUT_HINT = "Lead ID";
+  static const String LEAD_ID_TEXT_INPUT_ERROR = "Please enter valid Lead ID";
+  static const String LAST_DATE_TEXT_INPUT_HINT = "Last Followup date";
+  static const String LAST_DATE_TEXT_INPUT_ERROR = "Please enter valid date";
+  static const String NEXT_DATE_TEXT_INPUT_HINT = "Next Followup date";
+  static const String NEXT_DATE_TEXT_INPUT_ERROR = "Please enter valid date";
 
 
 
