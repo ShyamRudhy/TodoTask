@@ -206,7 +206,7 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(DEFAULT_MIN_PADDING),
+                    padding: const EdgeInsets.only(left:DEFAULT_MIN_PADDING,right :DEFAULT_MIN_PADDING, bottom: DEFAULT_MIN_PADDING),
                     child: Row(
                       children: [
                         Expanded(child: lastHeadingText(),),
