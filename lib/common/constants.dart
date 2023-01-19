@@ -29,6 +29,7 @@ class Constants{
 
   //routes
   static const String HOME_PAGE_ROUTE = '/homePage';
+  static const String ADD_CAMPAIGN_PAGE_ROUTE = '/CampaignPage';
 
   //states
   static const String STATE_SUCCESS = 'SUCCESS';
@@ -48,7 +49,16 @@ class Constants{
   static const String NO = "NO";
 
   //Title
-  static const String HOME_PAGE_TITLE = "";
+  static const String HOME_PAGE_TITLE = "Followup";
+  static const String COMPAIGN_PAGE_TITLE = "Compaign";
 
-  //PAGES
+  /*PAGES*/
+  //Home page
+  //static const String
+
+
+
+
+
+
 }

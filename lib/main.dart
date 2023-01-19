@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
       routes: {
       '/':(context) => SplashPage(),
         Constants.HOME_PAGE_ROUTE:(context) => const HomePage(),
+        Constants.HOME_PAGE_ROUTE:(context) => const HomePage(),
       },
 
     );
