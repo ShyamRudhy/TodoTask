@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:cupertino_icons/cupertino_icons.dart';
-
 import 'package:projects/common/colors.dart';
-import 'package:projects/common/dimensions.dart';
 import 'package:projects/common/constants.dart';
+import 'package:projects/common/dimensions.dart';
+import 'package:projects/models/todo_model.dart';
+import 'package:projects/services/DataBaseHelper.dart';
 import 'package:projects/widgets/default_space_horizontal.dart';
 import 'package:projects/widgets/default_space_vertical.dart';
 import 'package:projects/widgets/negative_mini_button.dart';
@@ -19,6 +19,13 @@ class AddCampaign extends StatefulWidget {
 class _AddCampaignState extends State<AddCampaign> {
   var size;
 
+  final _formKey = GlobalKey<FormState>();
+  TextEditingController _leadIdTextController = new TextEditingController();
+  TextEditingController _lastdateIdTextController = new TextEditingController();
+  TextEditingController _nextDateTextController = new TextEditingController();
+  TextEditingController _emailIdTextController = new TextEditingController();
+
+
   void onBackPressed(){
     Navigator.of(context).pop();
   }
@@ -26,8 +33,6 @@ class _AddCampaignState extends State<AddCampaign> {
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
-
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: BACKGROUND_COLOR,
@@ -35,7 +40,7 @@ class _AddCampaignState extends State<AddCampaign> {
         elevation: 0,
         leading: GestureDetector(
           onTap: (){
-onBackPressed();
+              onBackPressed();
           },
           child: const Icon(
             Icons.arrow_back_ios_sharp,color: PRIMARY_WHITE_COLOR,),),
@@ -135,7 +140,9 @@ onBackPressed();
               .textTheme
               .bodyText2
               ?.copyWith(color: COLOR_GREY),
-        );
+      controller: _leadIdTextController,
+
+    );
 
     Widget lastFollowUpDateTextField() => TextFormField(
           decoration: InputDecoration(
@@ -183,7 +190,9 @@ onBackPressed();
               .textTheme
               .bodyText2
               ?.copyWith(color: COLOR_GREY),
-        );
+      controller: _lastdateIdTextController,
+
+    );
 
     Widget nextFollowUpDateTextField() => TextFormField(
           decoration: InputDecoration(
@@ -231,7 +240,9 @@ onBackPressed();
               .textTheme
               .bodyText2
               ?.copyWith(color: COLOR_GREY),
-        );
+      controller: _nextDateTextController,
+
+    );
 
     Widget emailIdTextField() => TextFormField(
           decoration: InputDecoration(
@@ -279,7 +290,8 @@ onBackPressed();
               .textTheme
               .bodyText2
               ?.copyWith(color: COLOR_GREY),
-        );
+      controller: _emailIdTextController,
+    );
 
     return Column(
       children: [
@@ -299,10 +311,29 @@ onBackPressed();
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget> [
-        NegativeMiniButton(buttonText: "Cancel", onPressed: (){}, size: size),
+        NegativeMiniButton(buttonText: "Cancel", onPressed: (){
+          onBackPressed();
+        }, size: size),
         const DefaultSpaceHorizontal(),
-        PositiveMiniButton(buttonText: "Save", onPressed: (){}, size: size),
-    ],
+        PositiveMiniButton(buttonText: "Save", onPressed: () async{
+          
+          await DatabaseHelper.instance.add(TodoModel(
+                  leadId: int.parse(_leadIdTextController.text),
+                  lastDate: _lastdateIdTextController.text,
+                  nextDate: _nextDateTextController.text,
+                  email: _emailIdTextController.text));
+
+          setState(() {
+            _leadIdTextController.clear();
+            _lastdateIdTextController.clear();
+            _nextDateTextController.clear();
+            _emailIdTextController.clear();
+          });
+
+          onBackPressed();
+            },
+            size: size),
+      ],
     );
 
   }

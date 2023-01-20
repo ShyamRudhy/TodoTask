@@ -5,14 +5,24 @@ import 'package:projects/common/constants.dart';
 import 'package:projects/common/common_utils.dart';
 import 'package:projects/common/dimensions.dart';
 import 'package:projects/pages/add_task/add_campaign.dart';
+import 'package:projects/widgets/default_space_horizontal.dart';
+import 'package:projects/widgets/default_space_vertical.dart';
+import 'package:projects/models/todo_model.dart';
+import 'package:projects/services/DataBaseHelper.dart';
+
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
+
+
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+
+  var size;
 
 //add task
   void gotoAddTaskPage(){
@@ -22,9 +32,51 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
+    size = MediaQuery.of(context).size;
+
+
+    Widget todoListBuilder() {
+      return  FutureBuilder<List<TodoModel>>(
+        future: DatabaseHelper.instance.getTodoList(),
+        builder: (BuildContext context, AsyncSnapshot<List<TodoModel>> snapshot){
+          if(!snapshot.hasData){
+            return const Center(
+              child: Text("Loading",style: TextStyle(color: Colors.black),));
+          }
+          return snapshot.data!.isEmpty ?
+          const Center(child: Text('no task found'))
+          :            ListView.builder(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) =>
+                const  Text("hello",style: TextStyle(color: Colors.red) ,)
+                  //taskExpandCard(snapshot.data![index])
+
+          );
+
+
+          /*ListView(
+            children: snapshot.data!.map((e) {
+              return const Center(
+                child: ListTile(
+                  title: Text("hello",style: TextStyle(color: Colors.red) ,),
+                )
+              );
+            }).toList(),
+          );*/
+
+      });
+
+
+
+
+    }
+
+
+
     return  Scaffold(
       backgroundColor: BACKGROUND_COLOR,
       appBar: AppBar(
@@ -61,10 +113,11 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: DEFAULT_MIN_PADDING,vertical: DEFAULT_MIN_PADDING),
-        child: ListView(
+        child: Column(
           children:  <Widget> [
-           searchBar(),
-            taskExpandCard(),
+            searchBar(),
+            const DefaultSpaceVertical(),
+            Expanded(child: todoListBuilder()),
           ],
         ),
       ),
@@ -93,7 +146,7 @@ class _HomePageState extends State<HomePage> {
   }
 
 
-  Widget taskExpandCard(){
+  Widget taskExpandCard( TodoModel todoModel){
 
     Widget cardTitle() => Row(
       children: [
@@ -112,7 +165,7 @@ class _HomePageState extends State<HomePage> {
       const SizedBox(width: 45,),
       Expanded(
         child: Text(
-    '135',
+    todoModel.id.toString(),
     textAlign: TextAlign.start,
     style: Theme.of(context)
           .textTheme
@@ -136,7 +189,7 @@ class _HomePageState extends State<HomePage> {
           fontWeight: FontWeight.w500),
     );
     Widget lastHeadingTextData() =>  Text(
-      '10.12.2023',
+      todoModel.lastDate,
       textAlign: TextAlign.start,
       style: Theme.of(context)
           .textTheme
@@ -157,7 +210,7 @@ class _HomePageState extends State<HomePage> {
           fontWeight: FontWeight.w500),
     );
     Widget nextHeadingTextData() =>  Text(
-      '10.12.2023',
+      todoModel.nextDate,
       textAlign: TextAlign.start,
       style: Theme.of(context)
           .textTheme
@@ -178,7 +231,7 @@ class _HomePageState extends State<HomePage> {
           fontWeight: FontWeight.w500),
     );
     Widget emailHeadingTextData() =>  Text(
-      'developer@gmail.com',
+      todoModel.email,
       textAlign: TextAlign.start,
       style: Theme.of(context)
           .textTheme
@@ -188,6 +241,16 @@ class _HomePageState extends State<HomePage> {
           fontWeight: FontWeight.w400),
     );
 
+    Widget dateHeadingTextData() =>  Text(
+      todoModel.timeStamp.toString(),
+      textAlign: TextAlign.end,
+      style: Theme.of(context)
+          .textTheme
+          .caption
+          ?.copyWith(
+          color: PRIMARY_TEXT_COLOR_BLACK,
+          fontWeight: FontWeight.w300),
+    );
     return Card(
       color: CARD_BG_COLOR_LIT_GREEN,
       shape: RoundedRectangleBorder(
@@ -232,6 +295,15 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                   ),
+                  Row(
+                    children: [
+                       const Expanded(child: SizedBox()),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: DEFAULT_MIN_PADDING ,vertical: 4),
+                        child: dateHeadingTextData(),
+                      ),
+                    ],
+                  )
                 ],
               ),
             ),

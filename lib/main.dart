@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:projects/common/colors.dart';
-import 'package:loading_indicator/loading_indicator.dart';
 import 'package:projects/pages/add_task/add_campaign.dart';
 import 'package:projects/pages/home/homee_page.dart';
 import 'package:projects/pages/splash/splash_page.dart';
@@ -10,11 +9,13 @@ import 'common/dimensions.dart';
 
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
 
   // This widget is the root of your application.
   @override
@@ -56,7 +57,7 @@ class MyApp extends StatelessWidget {
               fontSize: 18.0,
               fontFamily: Constants.FONT_NAME_POPPINS,
               color: ACCENT_COLOR)).bodyText2, titleTextStyle: const TextTheme(
-          headline6: TextStyle(
+              headline6: TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: 18.0,
               fontFamily: Constants.FONT_NAME_POPPINS,
@@ -102,17 +103,4 @@ class MyApp extends StatelessWidget {
     );
   }
 
-
-
-
-  Widget loadingIndicator(BuildContext context){
-    return const LoadingIndicator(
-      indicatorType: Indicator.ballPulse,
-      colors: [Colors.white],
-      strokeWidth: 2,
-      backgroundColor: Colors.black,
-      pathBackgroundColor: Colors.black,
-    );
-
-  }
 }
