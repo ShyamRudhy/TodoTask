@@ -49,5 +49,14 @@ class DatabaseHelper{
     return await db.insert('todo', todoModel.toMap());
   }
 
+  Future<int> remove(int id) async{
+    Database db = await instance.database;
+    return await db.delete('todo',where: 'id=?',whereArgs:[id]);
+  }
+
+  Future<int> update(TodoModel todoModel) async{
+    Database db = await instance.database;
+    return await db.update('todo',todoModel.toMap(), where: 'id=?', whereArgs:[todoModel.id]);
+  }
 
 }

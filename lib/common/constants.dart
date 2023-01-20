@@ -65,6 +65,7 @@ class Constants{
   static const String NEXT_DATE_TEXT_INPUT_HINT = "Next Followup date";
   static const String NEXT_DATE_TEXT_INPUT_ERROR = "Please enter valid date";
 
+  static const String EMPTY_TASK_MESSAGE = "No task found";
 
 
 }
