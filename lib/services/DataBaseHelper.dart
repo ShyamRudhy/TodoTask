@@ -31,7 +31,7 @@ class DatabaseHelper{
     last_date TEXT NOT NULL,
     next_date TEXT NOT NULL,
     email TEXT NOT NULL,
-    time_stamp DATETIME
+    time_stamp TEXT NOT NULL
     )
     ''');
 
@@ -64,5 +64,6 @@ class DatabaseHelper{
 
   Future closeDB() async{
     final db = await instance.database;
+    return db.close();
   }
 }

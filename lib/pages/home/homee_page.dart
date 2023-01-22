@@ -177,9 +177,6 @@ class _HomePageState extends State<HomePage> {
                     fontWeight: FontWeight.w500),
               ),
             ),
-            const SizedBox(
-              width: 45,
-            ),
             Expanded(
               child: Text(
                 todoModel.leadId.toString(),
@@ -247,15 +244,14 @@ class _HomePageState extends State<HomePage> {
       child: Theme(
         data: ThemeData().copyWith(dividerColor: Colors.transparent),
         child: ExpansionTile(
-          leading: isExpanded ? const Icon(Icons.keyboard_arrow_up) : const Icon(Icons.hail),
-          onExpansionChanged: (id) => isExpanded,
-
+          leading: isExpanded ? const Icon(Icons.keyboard_arrow_up) : const Icon(Icons.keyboard_arrow_down),
+          onExpansionChanged: (id) => setState(() => isExpanded = id),
           trailing:const Icon(Icons.more_vert),
           title: cardTitle(),
           collapsedBackgroundColor: Colors.transparent,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(left: 8.0),
+              padding: const EdgeInsets.only(left: 32.0),
               child: Column(
                 children: [
                   Padding(
