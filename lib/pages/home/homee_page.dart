@@ -18,19 +18,37 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   var size;
+  late List<TodoModel> todoModel;
+  bool isLoading= false;
+
+  bool isExpanded =false;
 
 //add task
   void gotoAddTaskPage() {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const AddCampaign()),
-    );
+    ).then((value) => setState((){
+      refreshTodoList();
+    }));
   }
 
   @override
   void initState() {
-
     super.initState();
+    refreshTodoList();
+  }
+
+  @override
+  void dispose() {
+    DatabaseHelper.instance.closeDB();
+    super.dispose();
+  }
+
+  Future refreshTodoList() async {
+    setState(() => isLoading = true);
+    todoModel = await DatabaseHelper.instance.getTodoList();
+    setState(() => isLoading = false);
   }
 
   @override
@@ -61,9 +79,8 @@ class _HomePageState extends State<HomePage> {
                     physics: const ClampingScrollPhysics(),
                     scrollDirection: Axis.vertical,
                     itemCount: snapshot.data!.length,
-                    itemBuilder: (context, index) => const
-                    Text(" hello" ,style: TextStyle(color: Colors.red, fontSize: 45),)
-                    );
+                    itemBuilder: (context, index) => taskExpandCard(snapshot!.data![index])
+            );
           });
     }
 
@@ -165,7 +182,7 @@ class _HomePageState extends State<HomePage> {
             ),
             Expanded(
               child: Text(
-                todoModel.id.toString(),
+                todoModel.leadId.toString(),
                 textAlign: TextAlign.start,
                 style: Theme.of(context).textTheme.subtitle1?.copyWith(
                     color: PRIMARY_TEXT_COLOR_BLACK,
@@ -215,11 +232,12 @@ class _HomePageState extends State<HomePage> {
         );
 
     Widget dateHeadingTextData() => Text(
-          todoModel.timeStamp.toString(),
+          todoModel.timeStamp,
           textAlign: TextAlign.end,
           style: Theme.of(context).textTheme.caption?.copyWith(
               color: PRIMARY_TEXT_COLOR_BLACK, fontWeight: FontWeight.w300),
         );
+
     return Card(
       color: CARD_BG_COLOR_LIT_GREEN,
       shape: RoundedRectangleBorder(
@@ -229,7 +247,10 @@ class _HomePageState extends State<HomePage> {
       child: Theme(
         data: ThemeData().copyWith(dividerColor: Colors.transparent),
         child: ExpansionTile(
-          // leading: const Icon(Icons.more_vert),
+          leading: isExpanded ? const Icon(Icons.keyboard_arrow_up) : const Icon(Icons.hail),
+          onExpansionChanged: (id) => isExpanded,
+
+          trailing:const Icon(Icons.more_vert),
           title: cardTitle(),
           collapsedBackgroundColor: Colors.transparent,
           children: <Widget>[

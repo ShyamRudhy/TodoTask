@@ -37,7 +37,7 @@ packages:
     source: hosted
     version: "1.16.0"
   cupertino_icons:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: cupertino_icons
       url: "https://pub.dartlang.org"
@@ -81,6 +81,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  intl:
+    dependency: "direct dev"
+    description:
+      name: intl
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.18.0"
   lints:
     dependency: transitive
     description:

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:projects/models/todo_model.dart';
@@ -33,6 +34,8 @@ class DatabaseHelper{
     time_stamp DATETIME
     )
     ''');
+
+    debugPrint(" Table created");
   }
 
   Future<List<TodoModel>> getTodoList() async {
@@ -59,4 +62,7 @@ class DatabaseHelper{
     return await db.update('todo',todoModel.toMap(), where: 'id=?', whereArgs:[todoModel.id]);
   }
 
+  Future closeDB() async{
+    final db = await instance.database;
+  }
 }

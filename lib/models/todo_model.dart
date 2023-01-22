@@ -4,7 +4,7 @@ class TodoModel {
   final String lastDate;
   final String nextDate;
   final String email;
-  String? timeStamp;
+  final String timeStamp;
 
   TodoModel(
       {this.id,
@@ -12,7 +12,7 @@ class TodoModel {
       required this.lastDate,
       required this.nextDate,
       required this.email,
-       this.timeStamp});
+      required this.timeStamp});
 
   factory TodoModel.fromMap(Map<String, dynamic> json) => TodoModel(
       id: json['id'],
